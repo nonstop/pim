@@ -1,0 +1,21 @@
+#!/bin/sh
+
+QTDIR=${QT_INCLUDE_DIR}/..
+PIMDIR=${PIM_SOURCE_DIR}
+
+LUPDATE=$QTDIR/bin/lupdate
+LRELEASE=$QTDIR/bin/lrelease
+
+if [ "$1" == "release" ]
+then
+    $LRELEASE ${TRANSLATES_DIR}/pim_ru.ts -qm ${TRANSLATES_DIR}/pim_ru.qm
+    $LRELEASE ${TRANSLATES_DIR}/PimPasswords_ru.ts -qm ${TRANSLATES_DIR}/PimPasswords_ru.qm
+    $LRELEASE ${TRANSLATES_DIR}/PimContacts_ru.ts -qm ${TRANSLATES_DIR}/PimContacts_ru.qm
+    $LRELEASE ${TRANSLATES_DIR}/PimAddressBook_ru.ts -qm ${TRANSLATES_DIR}/PimAddressBook_ru.qm
+else
+    $LUPDATE ${PIM_SOURCE_DIR}/src -ts ${TRANSLATES_DIR}/pim_ru.ts
+    $LUPDATE ${PIM_SOURCE_DIR}/plugins/passwords -ts ${TRANSLATES_DIR}/PimPasswords_ru.ts
+    $LUPDATE ${PIM_SOURCE_DIR}/plugins/contacts -ts ${TRANSLATES_DIR}/PimContacts_ru.ts
+    $LUPDATE ${PIM_SOURCE_DIR}/plugins/addressbook -ts ${TRANSLATES_DIR}/PimAddressBook_ru.ts
+fi
+

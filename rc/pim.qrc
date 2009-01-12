@@ -1,0 +1,19 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file alias="new">images/document-new.png</file>
+    <file alias="open">images/folder-open.png</file>
+    <file alias="quit">images/system-log-out.png</file>
+    <file alias="openGroup">images/folder-open.png</file>
+    <file alias="closeGroup">images/folder.png</file>
+    <file alias="newGroup">images/list-add.png</file>
+    <file alias="editGroup">images/edit-paste.png</file>
+    <file alias="deleteGroup">images/list-remove.png</file>
+    <file alias="addPhone">images/list-add.png</file>
+    <file alias="delPhone">images/list-remove.png</file>
+    
+    <file alias="password">images/password.png</file>
+    <file alias="address">images/addressbook.png</file>
+</qresource>
+</RCC>
+
+

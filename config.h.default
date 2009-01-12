@@ -1,0 +1,8 @@
+#ifndef PIM_CONFIG_H
+#define PIM_CONFIG_H
+
+#define PIM_PLUGINS_DIR "${PIM_PLUGINS_DIR}"
+#define PIM_TRANSLATIONS_DIR "${PIM_TRANSLATIONS_DIR}"
+
+#endif /* PIM_CONFIG_H */
+

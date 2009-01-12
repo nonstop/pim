@@ -1,0 +1,62 @@
+PROJECT( PIM )
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+SET( PIM_VERSION 0.1 )
+SET( PIM_RCS ${PIM_SOURCE_DIR}/rc/pim.qrc )
+SET( PIM_OUTPUT_DIR ${PIM_SOURCE_DIR}/build )
+SET( PIM_PLUGINS_OUTPUT_DIR ${PIM_OUTPUT_DIR}/plugins )
+SET( TRANSLATE tr )
+SET( TRANSLATES_DIR ${PIM_SOURCE_DIR}/tr )
+
+SET(QT_USE_QTSQL TRUE)
+FIND_PACKAGE( Qt4 REQUIRED )
+INCLUDE( ${QT_USE_FILE} )
+
+ADD_DEFINITIONS( -Wall )
+
+SET( PIM_PLUGINS_DIR ${CMAKE_INSTALL_PREFIX}/lib/pim/plugins )
+SET( PIM_TRANSLATIONS_DIR ${CMAKE_INSTALL_PREFIX}/locale )
+CONFIGURE_FILE( ${PIM_SOURCE_DIR}/config.h.default ${PIM_SOURCE_DIR}/include/config.h )
+
+ADD_CUSTOM_TARGET( locale )
+ADD_CUSTOM_COMMAND(
+    TARGET locale
+    COMMAND sh
+    ARGS tr/tr.sh )
+ADD_CUSTOM_TARGET( locale-release )
+ADD_CUSTOM_COMMAND(
+    TARGET locale-release
+    COMMAND sh
+    ARGS tr/tr.sh release )
+
+ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(database)
+ADD_SUBDIRECTORY(plugins/addressbook)
+ADD_SUBDIRECTORY(plugins/passwords)
+ADD_SUBDIRECTORY(plugins/contacts)
+
+SET( TRANSLATIONS 
+    ${TRANSLATES_DIR}/pim_ru.qm 
+    ${TRANSLATES_DIR}/PimPasswords_ru.qm 
+    ${TRANSLATES_DIR}/PimContacts_ru.qm 
+    ${TRANSLATES_DIR}/PimAddressBook_ru.qm )
+
+INSTALL(
+    FILES ${TRANSLATIONS}
+    DESTINATION ${PIM_TRANSLATIONS_DIR} )
+
+CONFIGURE_FILE(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+    IMMEDIATE @ONLY )
+ADD_CUSTOM_TARGET( uninstall
+    "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" )
+
+
+MESSAGE( "\n   PIM ${PIM_VERSION}\n" )
+MESSAGE( "Prefix dir:.......... ${CMAKE_INSTALL_PREFIX}" )
+MESSAGE( "Plugin dir:.......... ${PIM_PLUGINS_DIR}" )
+MESSAGE( "Locales dir:......... ${PIM_TRANSLATIONS_DIR}" )
+MESSAGE( "\n" )
+
